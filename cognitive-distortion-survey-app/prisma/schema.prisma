@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Counter {
+  key       String   @id
+  value     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model SurveySubmission {
+  id              Int      @id @default(autoincrement())
+  participantCode String   @unique
+  version         String
+  startedAt       DateTime
+  submittedAt     DateTime
+  elapsedMs       Int
+  questionOrder   Json
+  responses       Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
